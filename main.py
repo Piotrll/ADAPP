@@ -1,4 +1,4 @@
-import tkinter
+import  tkinter
 import customtkinter
 
 
@@ -16,12 +16,17 @@ def hide_button(widget):
     widget.pack_forget()
 
 
+
 def show_button(widget):
     # This will recover the widget from toplevel
     widget.pack()
 
 
 def menu(root):
+    def hide_frame():
+        # Chowanie frame logowania
+        frame.pack_forget()
+
     def login():
         def login_action():
             if entry1.get() == "user" and entry2.get() == "passwd":
@@ -30,7 +35,7 @@ def menu(root):
                 print("null")
         hide_button(button)
 
-        back = customtkinter.CTkButton(master=frame, text="Back", command=main_start)
+        back = customtkinter.CTkButton(master=frame, text="Back", command=lambda: [hide_frame(), menu(root)])
         back.pack(pady=12, padx=10)
 
         label = customtkinter.CTkLabel(master=frame, text="Login")
