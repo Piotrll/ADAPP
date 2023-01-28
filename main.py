@@ -12,13 +12,10 @@ def main_start():
 
 
 def hide_button(widget):
-    # This will remove the widget from toplevel
     widget.pack_forget()
 
 
-
 def show_button(widget):
-    # This will recover the widget from toplevel
     widget.pack()
 
 
@@ -52,8 +49,6 @@ def menu(root):
 
         checkbox = customtkinter.CTkCheckBox(master=frame, text="Remember me")
         checkbox.pack(pady=10, padx=10)
-
-
 
     frame = customtkinter.CTkFrame(master=root)
     frame.pack(pady=20, padx=10, fill="both", expand=True)
