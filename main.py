@@ -1,10 +1,14 @@
 import  tkinter
 import customtkinter
+from configparser import ConfigParser
 
 
 def main_start():
+    setup = ConfigParser()
+    setup.read("conf.ini")
+    initial_color = setup.get('THEME', 'color')
     customtkinter.set_appearance_mode("dark")
-    customtkinter.set_default_color_theme("green") #To bedzie można potem zmienić w ustawieniach
+    customtkinter.set_default_color_theme(initial_color) #To bedzie można potem zmienić w ustawieniach
 
     root = customtkinter.CTk() #Główne pole działania(kontener), lepiej nie tykac
     root.geometry("500x350")
@@ -57,6 +61,13 @@ def menu(root):
         checkbox.pack(pady=10, padx=10)
 
     def settings():
+        def save_set(value):
+            conf = ConfigParser()
+            conf["THEME"] = {
+                "color": value
+            }
+            with open("conf.ini", "w") as w:
+                conf.write(w)
         def theme_change(value):
             customtkinter.set_default_color_theme(value)
         hide(frame_main)
@@ -70,7 +81,7 @@ def menu(root):
         theme = customtkinter.CTkSegmentedButton(master=frame_set,dynamic_resizing=True, values=["blue", "green"], command=theme_change)
         theme.pack(pady=12, padx=10)
 
-        back = customtkinter.CTkButton(master=frame_set, text="Back", command=lambda: [hide(frame_set), menu( root)])  # Powrót do menu, usuwa frame i odpala główną funcje menu od nowa
+        back = customtkinter.CTkButton(master=frame_set, text="Apply", command=lambda: [save_set(theme.get()), hide(frame_set), menu( root)])  # Powrót do menu, usuwa frame i odpala główną funcje menu od nowa
         back.pack(pady=12, padx=10)
 
 #panel menu poniżej należy do menu(root)
