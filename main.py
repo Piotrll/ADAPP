@@ -8,11 +8,15 @@ def main_start():
     setup.read("conf.ini")
     initial_color = setup.get('THEME', 'color')
     initial_appearance = setup.get('THEME', 'appearance')
+    if setup.get('THEME', 'color') == "":
+        initial_color = "blue"
+    if setup.get('THEME', 'appearance') == "":
+        initial_appearance = "light"
     customtkinter.set_appearance_mode(initial_appearance)
     customtkinter.set_default_color_theme(initial_color) #To można zmienić w ustawieniach
 
     root = customtkinter.CTk() #Główne pole działania(kontener), lepiej nie tykac
-    root.geometry("500x350")
+    root.geometry("300x400")
     menu(root)
 
 
@@ -62,11 +66,11 @@ def menu(root):
         checkbox.pack(pady=10, padx=10)
 
     def settings():
-        def save_set(coloor, appearance):
+        def save_set(coloor, appearancew):
             conf = ConfigParser()
             conf["THEME"] = {
                 "color": coloor,
-                "appearance": appearance
+                "appearance": appearancew
             }
             with open("conf.ini", "w") as w:
                 conf.write(w)
