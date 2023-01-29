@@ -83,6 +83,9 @@ def menu(root):
     settings = customtkinter.CTkButton(master=frame_main, text="Settings", command=settings)
     settings.pack(pady=12, padx=10)
 
+    exit_button = customtkinter.CTkButton(master=frame_main, text="Exit", command=quit)
+    exit_button.pack(pady=12, padx=10)
+
     root.mainloop()
 
 
